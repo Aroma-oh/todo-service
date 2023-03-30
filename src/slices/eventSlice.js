@@ -3,7 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
     isOpen: false,
     selectedTag: "",
-    hideDoneTask: false,
+    // hideDoneTask: false,
     target: null,
     type: "create",
 };
@@ -19,9 +19,9 @@ const eventSlice = createSlice({
         modalType: (state, action) => {
             state.type = action.payload ?? "create";
         },
-        hideDoneTask: (state) => {
-            state.hideDoneTask = state.hideDoneTask;
-        },
+        // hideDoneTask: (state) => {
+        //     state.hideDoneTask = !state.hideDoneTask;
+        // },
     },
 });
 

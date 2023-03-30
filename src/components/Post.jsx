@@ -66,7 +66,7 @@ const PostFooter = styled.div`
     }
 `;
 
-export const Post = ({ id, title, content, tagColor, done }) => {
+export const Post = ({ id, title, content, tag, tagColor, done }) => {
     const dispatch = useDispatch();
 
     // edit 모달 구현시 필요
@@ -104,6 +104,10 @@ export const Post = ({ id, title, content, tagColor, done }) => {
                                 dispatch(
                                     updateTodo({
                                         id,
+                                        title,
+                                        content,
+                                        tag,
+                                        tagColor,
                                         done: !done,
                                     })
                                 );

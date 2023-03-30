@@ -7,6 +7,7 @@ const todosSlice = createSlice({
         todos: initialTodos,
         tags,
         selectedTag: "",
+        isHide: false,
     },
     reducers: {
         addTodo: (state, action) => {
@@ -33,12 +34,22 @@ const todosSlice = createSlice({
         tagHandler: (state, action) => {
             const label = action.payload;
             state.selectedTag = label;
-            //state.todos = initialTodos.filter((el) => el.tag === label);
         },
         tagFilterHandler: (state) => {
             state.todos = initialTodos.filter(
                 (el) => el.tag === state.selectedTag
             );
+        },
+        doneFilterHandler: (state) => {
+            state.isHide = !state.isHide;
+
+            if (state.isHide) {
+                state.todos = state.todos.filter((el) => el.done === false);
+            } else {
+                state.todos = state.selectedTag
+                    ? initialTodos.filter((el) => el.tag === state.selectedTag)
+                    : initialTodos;
+            }
         },
         resetHandler: (state) => {
             state.todos = initialTodos;
@@ -53,6 +64,7 @@ export const {
     tagHandler,
     resetHandler,
     tagFilterHandler,
+    doneFilterHandler,
 } = todosSlice.actions;
 
 export default todosSlice.reducer;

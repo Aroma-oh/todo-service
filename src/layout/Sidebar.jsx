@@ -1,8 +1,8 @@
 import styled from "styled-components";
 import { Toggle } from "../components/Toggle";
 import { Tags } from "../components/Tags";
-import { useDispatch } from "react-redux";
-import { hideDoneTask } from "../slices/eventSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { doneFilterHandler } from "../slices/todosSlice";
 
 const SidebarContainer = styled.nav`
     position: fixed;
@@ -31,15 +31,16 @@ const SidebarContainer = styled.nav`
 `;
 export const Sidebar = () => {
     const dispatch = useDispatch();
-
+    const isHide = useSelector((state) => state.todos.isHide);
     return (
         <SidebarContainer>
             <Tags />
             <div id="filterTask">
                 <input
                     type="checkbox"
+                    checked={isHide}
                     onClick={() => {
-                        dispatch(hideDoneTask());
+                        dispatch(doneFilterHandler());
                     }}
                 ></input>
                 <label>Hide Done Tasks</label>

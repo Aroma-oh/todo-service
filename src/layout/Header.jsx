@@ -2,9 +2,9 @@
 import styled from "styled-components";
 import { useDispatch } from "react-redux";
 import { openModal, modalType } from "../slices/eventSlice";
-import { resetHandler } from "../slices/todosSlice";
+import { resetHandler, doneFilterHandler } from "../slices/todosSlice";
 
-export const HeaderContainer = styled.header`
+const HeaderContainer = styled.header`
     background-color: white;
     width: 100vw;
     height: 100px;
@@ -56,7 +56,13 @@ export const Header = () => {
     return (
         <>
             <HeaderContainer>
-                <h1 className="title" onClick={() => dispatch(resetHandler())}>
+                <h1
+                    className="title"
+                    onClick={() => {
+                        dispatch(resetHandler());
+                        dispatch(doneFilterHandler());
+                    }}
+                >
                     todo
                 </h1>
                 <button
