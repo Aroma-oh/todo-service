@@ -1,8 +1,8 @@
 import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
-import { tagHandler } from "../slices/todosSlice";
+import { tagHandler, tagFilterHandler } from "../slices/todosSlice";
 
-export const TagsContainer = styled.div`
+const TagsContainer = styled.div`
     display: flex;
     flex-direction: column; // 여기를 프롭스로 변경11
     align-items: flex-start;
@@ -59,6 +59,7 @@ export const Tags = () => {
                         color={el.color}
                         onClick={() => {
                             dispatch(tagHandler(el.label));
+                            dispatch(tagFilterHandler());
                         }}
                         className={selectedTag === el.label ? "checked" : ""}
                     >

@@ -4,7 +4,7 @@ import { Tags } from "../components/Tags";
 import { useDispatch } from "react-redux";
 import { hideDoneTask } from "../slices/eventSlice";
 
-export const SidebarContainer = styled.nav`
+const SidebarContainer = styled.nav`
     position: fixed;
     width: 260px;
     height: 100vh;
@@ -38,7 +38,9 @@ export const Sidebar = () => {
             <div id="filterTask">
                 <input
                     type="checkbox"
-                    onClick={() => dispatch(hideDoneTask())}
+                    onClick={() => {
+                        dispatch(hideDoneTask());
+                    }}
                 ></input>
                 <label>Hide Done Tasks</label>
             </div>

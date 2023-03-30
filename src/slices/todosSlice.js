@@ -35,13 +35,24 @@ const todosSlice = createSlice({
             state.selectedTag = label;
             //state.todos = initialTodos.filter((el) => el.tag === label);
         },
+        tagFilterHandler: (state) => {
+            state.todos = initialTodos.filter(
+                (el) => el.tag === state.selectedTag
+            );
+        },
         resetHandler: (state) => {
             state.todos = initialTodos;
             state.selectedTag = "";
         },
     },
 });
-export const { addTodo, updateTodo, deleteTodo, tagHandler, resetHandler } =
-    todosSlice.actions;
+export const {
+    addTodo,
+    updateTodo,
+    deleteTodo,
+    tagHandler,
+    resetHandler,
+    tagFilterHandler,
+} = todosSlice.actions;
 
 export default todosSlice.reducer;
