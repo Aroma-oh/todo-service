@@ -40,9 +40,11 @@ const todosSlice = createSlice({
                 (el) => el.tag === state.selectedTag
             );
         },
+        isHideHandler: (state) => {
+            state.isHide = false;
+        },
         doneFilterHandler: (state) => {
             state.isHide = !state.isHide;
-
             if (state.isHide) {
                 state.todos = state.todos.filter((el) => el.done === false);
             } else {
@@ -65,6 +67,7 @@ export const {
     resetHandler,
     tagFilterHandler,
     doneFilterHandler,
+    isHideHandler,
 } = todosSlice.actions;
 
 export default todosSlice.reducer;

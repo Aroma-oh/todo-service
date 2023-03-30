@@ -2,7 +2,7 @@
 import styled from "styled-components";
 import { useDispatch } from "react-redux";
 import { openModal, modalType } from "../slices/eventSlice";
-import { resetHandler, doneFilterHandler } from "../slices/todosSlice";
+import { resetHandler, isHideHandler } from "../slices/todosSlice";
 
 const HeaderContainer = styled.header`
     background-color: white;
@@ -60,7 +60,7 @@ export const Header = () => {
                     className="title"
                     onClick={() => {
                         dispatch(resetHandler());
-                        dispatch(doneFilterHandler());
+                        dispatch(isHideHandler());
                     }}
                 >
                     todo
