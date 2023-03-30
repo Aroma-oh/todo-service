@@ -2,6 +2,7 @@ import styled from "styled-components";
 import { useSelector, useDispatch } from "react-redux";
 import { openModal } from "../slices/eventSlice";
 import { Post } from "../components/Post";
+import { CreateModal } from "../components/CreateModal";
 
 export const MainContainer = styled.div`
     display: flex;
@@ -25,6 +26,7 @@ export const MainContainer = styled.div`
 
 export const Main = () => {
     const dispatch = useDispatch();
+
     const data = useSelector((state) => state.todos.todos);
     const hideDoneTask = useSelector((state) => state.event.hideDoneTask);
 

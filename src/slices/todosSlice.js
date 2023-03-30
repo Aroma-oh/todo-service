@@ -19,29 +19,29 @@ const todosSlice = createSlice({
             state.todos.push(newTodo);
         },
         updateTodo: (state, action) => {
-            const todoToUpdate = state.todos.filter(
+            const updateIdx = state.todos.findIndex(
                 (todo) => todo.id === action.payload.id
             );
-            if (todoToUpdate)
-                return {
-                    ...todoToUpdate,
-                    ...action.payload,
-                };
+            if (updateIdx > -1) {
+                state.todos.splice(updateIdx, 1, action.payload);
+            }
         },
         deleteTodo: (state, action) => {
             const id = action.payload;
             state.todos = state.todos.filter((todo) => todo.id !== id);
         },
         tagHandler: (state, action) => {
-            // 여기 모르겠당 합치는게 맞나?
             const label = action.payload;
             state.selectedTag = label;
-            state.todos = initialTodos.todos.filter((el) => el.tag === label);
+            state.todos = initialTodos.filter((el) => el.tag === label); // 여기 모르겠당 합치는게 맞나?
+        },
+        resetHandler: (state) => {
+            state.todos = initialTodos;
+            state.selectedTag = "";
         },
     },
 });
-
-export const { addTodo, updateTodo, deleteTodo, tagHandler } =
+export const { addTodo, updateTodo, deleteTodo, tagHandler, resetHandler } =
     todosSlice.actions;
 
 export default todosSlice.reducer;

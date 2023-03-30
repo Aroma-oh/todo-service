@@ -1,7 +1,8 @@
 // import React from "react";
 import styled from "styled-components";
-import { useDispatch, useSelector } from "react-redux";
-import { openModal } from "../slices/eventSlice";
+import { useDispatch } from "react-redux";
+import { openModal, modalType } from "../slices/eventSlice";
+import { resetHandler } from "../slices/todosSlice";
 
 export const HeaderContainer = styled.header`
     background-color: white;
@@ -55,12 +56,14 @@ export const Header = () => {
     return (
         <>
             <HeaderContainer>
-                {/* onClick={dataResetHandler} */}
-                <h1 className="title">todo</h1>
+                <h1 className="title" onClick={() => dispatch(resetHandler())}>
+                    todo
+                </h1>
                 <button
                     className="add"
                     onClick={() => {
                         dispatch(openModal());
+                        dispatch(modalType("create"));
                     }}
                 >
                     +

@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
-import { openModal } from "../slices/eventSlice";
+import { openModal, modalType } from "../slices/eventSlice";
 import { deleteTodo } from "../slices/todosSlice";
 
 const Container = styled.div`
@@ -51,11 +51,6 @@ export const EditDeletePopup = ({ id, openEditModalHandler }) => {
     const data = useSelector((state) => state.todos.todos);
     const dispatch = useDispatch();
 
-    const del = () => {
-        dispatch(deleteTodo(id));
-        openEditModalHandler();
-        console.log(data);
-    };
     return (
         <>
             <Container onClick={openEditModalHandler} />
@@ -64,6 +59,7 @@ export const EditDeletePopup = ({ id, openEditModalHandler }) => {
                     top
                     onClick={() => {
                         dispatch(openModal(id));
+                        dispatch(modalType("edit"));
                         openEditModalHandler();
                     }}
                 >
@@ -71,7 +67,8 @@ export const EditDeletePopup = ({ id, openEditModalHandler }) => {
                 </Button>
                 <Button
                     onClick={() => {
-                        del();
+                        dispatch(deleteTodo(id));
+                        openEditModalHandler();
                     }}
                 >
                     Delete

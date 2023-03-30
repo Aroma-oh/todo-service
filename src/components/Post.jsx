@@ -4,7 +4,7 @@ import { EditDeletePopup } from "./EditDeletePopup";
 import { useDispatch } from "react-redux";
 import { deleteTodo, updateTodo } from "../slices/todosSlice";
 
-export const PostContainer = styled.div`
+const PostContainer = styled.div`
     position: relative;
     width: 400px;
     height: auto;
@@ -74,9 +74,6 @@ export const Post = ({ id, title, content, tagColor, done }) => {
     const openEditModalHandler = () => {
         setIsOn(!isOn);
     };
-    // const deletePostHandler = () => {
-    //     deleteTodo(dispatch(id));
-    // };
 
     return (
         <PostContainer>
@@ -84,7 +81,9 @@ export const Post = ({ id, title, content, tagColor, done }) => {
                 <div className="title">
                     <h3>{title}</h3>
                     <i
-                        onClick={() => setIsOn(true)}
+                        onClick={() => {
+                            openEditModalHandler();
+                        }}
                         className="fa-solid fa-ellipsis"
                     ></i>
                 </div>
@@ -93,7 +92,6 @@ export const Post = ({ id, title, content, tagColor, done }) => {
                     <EditDeletePopup
                         id={id}
                         openEditModalHandler={openEditModalHandler}
-                        // deletePostHandler={deletePostHandler}
                     />
                 ) : null}
                 <PostFooter color={tagColor}>
