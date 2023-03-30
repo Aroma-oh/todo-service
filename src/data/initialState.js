@@ -1,7 +1,7 @@
 import { colorSet } from "../style/theme";
 
 const initialState = {
-    todos: [
+    initialTodos: [
         {
             id: 1,
             title: "오늘의 할일",

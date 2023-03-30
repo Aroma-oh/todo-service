@@ -29,8 +29,8 @@ const todosSlice = createSlice({
                 };
         },
         deleteTodo: (state, action) => {
-            const { id } = action.payload;
-            state = state.todos.filter((todo) => todo.id !== id);
+            const id = action.payload;
+            state.todos = state.todos.filter((todo) => todo.id !== id);
         },
         tagHandler: (state, action) => {
             // 여기 모르겠당 합치는게 맞나?

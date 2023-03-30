@@ -2,6 +2,7 @@ import { ThemeProvider } from "styled-components";
 import { useSelector } from "react-redux";
 import { Header } from "../layout/Header";
 import { Sidebar } from "../layout/Sidebar";
+import { Main } from "../layout/Main";
 
 function App() {
     const themeMode = useSelector((state) => state.theme.themeMode);
@@ -13,6 +14,7 @@ function App() {
             <ThemeProvider theme={theme}>
                 <Header />
                 <Sidebar />
+                <Main />
             </ThemeProvider>
         </>
     );

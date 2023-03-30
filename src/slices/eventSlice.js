@@ -10,7 +10,7 @@ const eventSlice = createSlice({
     name: "event",
     initialState,
     reducers: {
-        openModal: (state) => {
+        openModal: (state, action) => {
             state.isOpen = !state.isOpen;
         },
         hideDoneTask: (state) => {

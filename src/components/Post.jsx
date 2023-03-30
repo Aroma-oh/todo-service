@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import styled from "styled-components";
-import { EditModal } from "./EditModal";
-import { useSelector, useDispatch } from "react-redux";
+import { EditDeletePopup } from "./EditDeletePopup";
+import { useDispatch } from "react-redux";
+import { deleteTodo, updateTodo } from "../slices/todosSlice";
 
 export const PostContainer = styled.div`
     position: relative;
@@ -65,29 +66,21 @@ const PostFooter = styled.div`
     }
 `;
 
-export const Post = ({
-    id,
-    title,
-    content,
-    color,
-    done,
-    data,
-    setData,
-    doneHandler,
-    openModalHandler,
-}) => {
-    const [isOn, setIsOn] = useState(false);
+export const Post = ({ id, title, content, tagColor, done }) => {
+    const dispatch = useDispatch();
 
+    // edit 모달 구현시 필요
+    const [isOn, setIsOn] = useState(false);
     const openEditModalHandler = () => {
         setIsOn(!isOn);
     };
-    const deletePostHandler = () => {
-        setData(data.filter((el) => el.id !== id));
-    };
+    // const deletePostHandler = () => {
+    //     deleteTodo(dispatch(id));
+    // };
 
     return (
-        <PostContainer className="here">
-            <div className="postBody" key={id}>
+        <PostContainer>
+            <div key={id}>
                 <div className="title">
                     <h3>{title}</h3>
                     <i
@@ -97,34 +90,25 @@ export const Post = ({
                 </div>
                 <div className="content">{content}</div>
                 {isOn ? (
-                    <EditModal
+                    <EditDeletePopup
                         id={id}
                         openEditModalHandler={openEditModalHandler}
-                        openModalHandler={openModalHandler}
-                        deletePostHandler={deletePostHandler}
+                        // deletePostHandler={deletePostHandler}
                     />
                 ) : null}
-                <PostFooter color={color}>
+                <PostFooter color={tagColor}>
                     <div className="label" />
                     <div className="activeBox">
                         <input
                             type="checkbox"
                             checked={done}
                             onClick={() => {
-                                setData(
-                                    data.map((d) => {
-                                        if (d.id === id) {
-                                            return {
-                                                ...d,
-                                                done: !d.done,
-                                            };
-                                        }
-                                        doneHandler(d.id);
-                                        return d;
+                                dispatch(
+                                    updateTodo({
+                                        id,
+                                        done: !done,
                                     })
                                 );
-
-                                // console.log(e.target.checked) 기존 데이터가 이미 boolean
                             }}
                         />
                         <label>{done === true ? "Done" : "Active"}</label>
