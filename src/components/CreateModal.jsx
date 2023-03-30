@@ -144,7 +144,6 @@ export const CreateModal = () => {
     const isOpen = useSelector((state) => state.event.isOpen);
     const target = useSelector((state) => state.event.target);
     const type = useSelector((state) => state.event.type);
-    console.log(type);
 
     const textRef = useRef();
     const handleResizeHeight = useCallback(() => {
@@ -174,6 +173,7 @@ export const CreateModal = () => {
         tagColor,
         done: false,
     };
+    // console.log(newData);
 
     const editData = data.find((el) => el.id === target);
     const updateData = {
@@ -191,14 +191,13 @@ export const CreateModal = () => {
         setContent("");
         dispatch(tagHandler(""));
         dispatch(openModal());
-        // console.log(data); // 비동기적 업데이트
         return null;
     };
 
     useEffect(() => {
-        // console.log("useEffect");
-        // console.log(data);
-    }, [data]); // edit 실행후에 data []
+        console.log("useEffect");
+        console.log(data);
+    }, [data]);
 
     useEffect(() => {
         if (type === "create") {

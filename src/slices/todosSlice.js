@@ -33,7 +33,7 @@ const todosSlice = createSlice({
         tagHandler: (state, action) => {
             const label = action.payload;
             state.selectedTag = label;
-            state.todos = initialTodos.filter((el) => el.tag === label); // 여기 모르겠당 합치는게 맞나?
+            //state.todos = initialTodos.filter((el) => el.tag === label);
         },
         resetHandler: (state) => {
             state.todos = initialTodos;
