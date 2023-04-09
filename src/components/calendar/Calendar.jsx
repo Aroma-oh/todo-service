@@ -141,6 +141,10 @@ const Body = styled.div`
                         justify-content: flex-start;
                         align-items: center;
 
+                        :hover {
+                            font-weight: 700;
+                        }
+
                         font-size: 0.5rem;
                         span {
                             z-index: 10000;
@@ -174,12 +178,17 @@ const RenderHeader = ({ currentMonth }) => {
     );
 };
 
-const RenderCells = ({ currentMonth, selectedDate, onDateClick }) => {
+const RenderCells = ({
+    currentMonth,
+    selectedDate,
+    onDateClick,
+    value,
+    valHandler,
+}) => {
     const monthStart = startOfMonth(currentMonth);
     const monthEnd = endOfMonth(monthStart);
     const startDate = startOfWeek(monthStart); // 현재 월의, 첫 주의, 시작일 -> 전월의 일요일일 수도 있음
     const endDate = endOfWeek(monthEnd); // 현재 월의, 마지막 주의, 마지막일
-
     const rows = []; // 한 달의 모든 주
     let days = []; // 한 주
     let day = startDate;
@@ -188,6 +197,7 @@ const RenderCells = ({ currentMonth, selectedDate, onDateClick }) => {
     while (day <= endDate) {
         for (let i = 0; i < 7; i++) {
             formattedDate = format(day, "d");
+            const cloneDay = day; // 이벤트 핸들러의 실행시점 차이를 해결하기 위해 day를 저장해둠
             days.push(
                 <div
                     className={`col cell ${
@@ -198,7 +208,7 @@ const RenderCells = ({ currentMonth, selectedDate, onDateClick }) => {
                             : "not-valid" // 이번달이 아니면 색상을 다르게 주기 위함
                     }`}
                     key={day}
-                    onClick={() => onDateClick(day)}
+                    onClick={() => onDateClick(cloneDay)}
                 >
                     <span
                         className={
@@ -228,16 +238,17 @@ const RenderCells = ({ currentMonth, selectedDate, onDateClick }) => {
 
 export const Calendar = () => {
     const currentDate = new Date(); // 오늘의 날짜 정보
+    const currentDateClone = new Date();
     const [selectedDate, setSelectedDate] = useState(new Date());
+
+    const onDateClick = (day) => {
+        setSelectedDate(day);
+    };
 
     let currentMonth = new Date(format(currentDate, "yyyy")); // 올해 1월
     let months = []; // 올해 1월 ~ 12월
 
     const monthRef = useRef(null);
-
-    const onDateClick = (day) => {
-        setSelectedDate(day);
-    };
 
     for (let i = 0; i < 12; i++) {
         months.push(
@@ -245,7 +256,8 @@ export const Calendar = () => {
                 className="calendar__item"
                 key={uuid()}
                 ref={
-                    format(currentMonth, "MM") === format(selectedDate, "MM")
+                    format(currentMonth, "MM") ===
+                    format(currentDateClone, "MM")
                         ? monthRef
                         : null
                 }
@@ -277,7 +289,12 @@ export const Calendar = () => {
         <>
             <BgContainer>
                 <CalendarContainer>
-                    <Header onClick={() => scrollCurrentMonth()}>
+                    <Header
+                        onClick={() => {
+                            scrollCurrentMonth();
+                            setSelectedDate(new Date());
+                        }}
+                    >
                         <div className="text">
                             {currentDate.toLocaleString("en-US", {
                                 month: "long",
