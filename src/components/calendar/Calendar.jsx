@@ -34,7 +34,7 @@ const CalendarContainer = styled.div`
     position: absolute;
     top: 23%;
     left: 62%;
-    width: 24%;
+    width: 330px;
     min-width: 60px;
     height: 50%;
 
@@ -101,8 +101,8 @@ const Body = styled.div`
         overflow-y: scroll;
 
         .calendar__item {
-            width: 90%;
-            height: 50%;
+            width: 330px;
+            height: 200px;
             padding: 2%;
             padding-top: 8%;
             margin-bottom: 5%;
@@ -110,7 +110,7 @@ const Body = styled.div`
             .header {
                 width: 100%;
                 height: 10%;
-                margin-bottom: 5%;
+                margin-bottom: 0.95rem;
 
                 text-align: center;
                 font-size: 1em;
@@ -135,6 +135,7 @@ const Body = styled.div`
                     .col {
                         width: 15%;
                         height: 100%;
+                        margin-bottom: 0.13rem;
 
                         display: flex;
                         flex-direction: column;
@@ -145,7 +146,7 @@ const Body = styled.div`
                             font-weight: 700;
                         }
 
-                        font-size: 0.5rem;
+                        font-size: 0.7rem;
                         span {
                             z-index: 10000;
                             padding-top: 5px;
@@ -178,13 +179,7 @@ const RenderHeader = ({ currentMonth }) => {
     );
 };
 
-const RenderCells = ({
-    currentMonth,
-    selectedDate,
-    onDateClick,
-    value,
-    valHandler,
-}) => {
+const RenderCells = ({ currentMonth, selectedDate, onDateClick }) => {
     const monthStart = startOfMonth(currentMonth);
     const monthEnd = endOfMonth(monthStart);
     const startDate = startOfWeek(monthStart); // 현재 월의, 첫 주의, 시작일 -> 전월의 일요일일 수도 있음
@@ -250,6 +245,16 @@ export const Calendar = () => {
 
     const monthRef = useRef(null);
 
+    const handleScroll = () => {
+        // 스크롤 좌표를 가져올 때
+        console.log("scrollTop:", monthRef.current.scrollTop);
+        console.log("scrollLeft:", monthRef.current.scrollLeft);
+
+        // 스크롤 좌표를 설정할 때
+        monthRef.current.scrollTop = 100;
+        monthRef.current.scrollLeft = 50;
+    };
+
     for (let i = 0; i < 12; i++) {
         months.push(
             <div
@@ -261,6 +266,8 @@ export const Calendar = () => {
                         ? monthRef
                         : null
                 }
+                // style={{ width: "330px", height: "200px" }}
+                onScroll={handleScroll}
             >
                 <RenderHeader currentMonth={currentMonth} />
                 <RenderCells
