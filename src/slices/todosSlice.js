@@ -1,5 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { initialTodos, tags } from "../data/initialState.js";
+import { format } from "date-fns";
 
 const todosSlice = createSlice({
     name: "todos",
@@ -8,14 +9,18 @@ const todosSlice = createSlice({
         tags,
         selectedTag: "",
         isHide: false,
+        date: null,
     },
     reducers: {
+        setDate: (state, action) => {
+            state.date = action.payload;
+        },
         addTodo: (state, action) => {
             const newTodo = {
                 ...action.payload,
                 id: state.todos.length + 1,
                 done: false,
-                date: new Date().toISOString(),
+                date: state.date,
             };
             state.todos.push(newTodo);
         },
@@ -60,6 +65,7 @@ const todosSlice = createSlice({
     },
 });
 export const {
+    setDate,
     addTodo,
     updateTodo,
     deleteTodo,

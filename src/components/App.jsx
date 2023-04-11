@@ -4,7 +4,7 @@ import { Header } from "../layout/Header";
 import { Sidebar } from "../layout/Sidebar";
 import { Main } from "../layout/Main";
 import { CreateModal } from "../components/CreateModal";
-import { Calendar } from "./calendar/Calendar";
+import { Calendar } from "../components/Calendar";
 
 function App() {
     const themeMode = useSelector((state) => state.theme.themeMode);
@@ -19,7 +19,7 @@ function App() {
                 <Sidebar />
                 <Main />
                 <CreateModal type />
-                <Calendar />
+                {/* <Calendar /> */}
             </ThemeProvider>
         </>
     );

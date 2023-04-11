@@ -60,9 +60,6 @@ const View = styled.div.attrs((props) => ({ role: "dialog" }))`
 
             color: ${(props) => props.theme.colors.textColor};
             border-radius: 16px;
-            /*border-radius: 12px;
-            border-color: "#F7F7F7";
-            */
         }
 
         .content {
@@ -71,11 +68,10 @@ const View = styled.div.attrs((props) => ({ role: "dialog" }))`
 
             color: ${(props) => props.theme.colors.textColor};
             border-radius: 16px;
-            /* border-color: "#F7F7F7";
-             */
         }
 
-        > textarea {
+        > textarea,
+        .date {
             width: 100%;
             padding: 24px 24px;
 
@@ -141,6 +137,7 @@ export const CreateModal = () => {
     const data = useSelector((state) => state.todos.todos);
     const tagData = useSelector((state) => state.todos.tags);
     const selectedTag = useSelector((state) => state.todos.selectedTag);
+    const date = useSelector((state) => state.todos.date);
     const isOpen = useSelector((state) => state.event.isOpen);
     const target = useSelector((state) => state.event.target);
     const type = useSelector((state) => state.event.type);
@@ -259,6 +256,19 @@ export const CreateModal = () => {
                                 value={content}
                                 onChange={contentHandler}
                             />
+                        </div>
+                        <div className="inputBox">
+                            <h2 className="title"> Date </h2>
+                            <div className="date content">
+                                <p> YYYY - MM - DD</p>
+                                <i
+                                    className="fa-duotone fa-calendar-days"
+                                    style={{
+                                        "--fa-primary-color": "#d9d9d9",
+                                        "--fa-secondary-color": "#545454",
+                                    }}
+                                />
+                            </div>
                         </div>
                         <div className="tags">
                             {tagData.map((el) => {

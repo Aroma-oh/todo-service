@@ -1,5 +1,8 @@
 import styled from "styled-components";
 import { useEffect, useRef, useState } from "react";
+import { useDispatch } from "react-redux";
+import { setDate } from "../slices/todosSlice";
+
 import uuid from "react-uuid";
 import {
     startOfMonth,
@@ -232,12 +235,20 @@ const RenderCells = ({ currentMonth, selectedDate, onDateClick }) => {
 };
 
 export const Calendar = () => {
+    const dispatch = useDispatch();
+
     const currentDate = new Date(); // 오늘의 날짜 정보
     const currentDateClone = new Date();
     const [selectedDate, setSelectedDate] = useState(new Date());
+    let formattedDate = format(selectedDate, "yyyy-MM-dd");
+    let myDate = new Date();
+    // 새로운 상태: 빈문자열 -> 선택된 연/월/일만 관리함, slice와 문자열만 주고 받음 -> new Date로하면 타입이 꼬임
+    // 배열 [year, month, day] 상태도 구조분해 이용
 
     const onDateClick = (day) => {
         setSelectedDate(day);
+        dispatch(setDate({ formattedDate }));
+        // console.log(`선택 날짜: ${formatted} - ${typeof formatted}`);
     };
 
     let currentMonth = new Date(format(currentDate, "yyyy")); // 올해 1월
@@ -266,7 +277,6 @@ export const Calendar = () => {
                         ? monthRef
                         : null
                 }
-                // style={{ width: "330px", height: "200px" }}
                 onScroll={handleScroll}
             >
                 <RenderHeader currentMonth={currentMonth} />
