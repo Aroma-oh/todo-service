@@ -2,10 +2,9 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
     isOpen: false,
-    selectedTag: "",
-    // hideDoneTask: false,
     target: null,
     type: "create",
+    isOpenCalendar: false,
 };
 
 const eventSlice = createSlice({
@@ -19,11 +18,12 @@ const eventSlice = createSlice({
         modalType: (state, action) => {
             state.type = action.payload ?? "create";
         },
-        // hideDoneTask: (state) => {
-        //     state.hideDoneTask = !state.hideDoneTask;
-        // },
+        openCalendar: (state) => {
+            state.isOpenCalendar = !state.isOpenCalendar;
+        },
     },
 });
 
-export const { openModal, modalType, hideDoneTask } = eventSlice.actions;
+export const { openModal, modalType, hideDoneTask, openCalendar } =
+    eventSlice.actions;
 export default eventSlice;

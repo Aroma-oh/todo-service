@@ -1,4 +1,5 @@
 import { colorSet } from "../style/theme";
+import { format } from "date-fns";
 
 const initialState = {
     initialTodos: [
@@ -9,7 +10,7 @@ const initialState = {
             tag: "entertainment",
             tagColor: colorSet.blue,
             done: true,
-            date: new Date().toISOString(),
+            date: format(new Date(), "yyyy-MM-dd"),
         },
         {
             id: 2,
@@ -18,7 +19,7 @@ const initialState = {
             tag: "study",
             tagColor: colorSet.green,
             done: false,
-            date: new Date().toISOString(),
+            date: format(new Date(), "yyyy-MM-dd"),
         },
         {
             id: 3,
@@ -27,7 +28,7 @@ const initialState = {
             tag: "health",
             tagColor: colorSet.orange,
             done: false,
-            date: new Date().toISOString(),
+            date: format(new Date(), "yyyy-MM-dd"),
         },
     ],
     tags: [

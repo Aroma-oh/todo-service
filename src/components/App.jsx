@@ -19,7 +19,7 @@ function App() {
                 <Sidebar />
                 <Main />
                 <CreateModal type />
-                {/* <Calendar /> */}
+                <Calendar />
             </ThemeProvider>
         </>
     );

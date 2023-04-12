@@ -2,7 +2,7 @@ import { useState, useRef, useCallback, useEffect } from "react";
 import styled from "styled-components";
 import { Tag } from "./Tags";
 import { useDispatch, useSelector } from "react-redux";
-import { openModal } from "../slices/eventSlice";
+import { openModal, openCalendar } from "../slices/eventSlice";
 import { addTodo, updateTodo, tagHandler } from "../slices/todosSlice";
 
 const Container = styled.div`
@@ -38,20 +38,19 @@ const View = styled.div.attrs((props) => ({ role: "dialog" }))`
         width: 100%;
         height: 20%;
         margin-top: 12px;
-        padding: 18px 56px;
+        padding: 18px 56px 0px 56px;
 
         display: flex;
         flex-direction: row;
         justify-content: space-between;
         align-items: center;
-        gap: 10px;
     }
     .inputBox {
         display: flex;
         flex-direction: column;
         align-items: flex-start;
         width: 100%;
-        padding: 18px 56px;
+        padding: 12px 56px;
 
         .title {
             font-weight: 500;
@@ -70,8 +69,25 @@ const View = styled.div.attrs((props) => ({ role: "dialog" }))`
             border-radius: 16px;
         }
 
-        > textarea,
         .date {
+            width: 100%;
+            padding: 1.2rem 2rem;
+
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            text-align: center;
+
+            background-color: ${(props) => props.theme.colors.mainBgColor};
+            border-color: #f7f7f7;
+
+            > i {
+                color: ${(props) => props.theme.colors.textColor};
+                font-size: 1.5rem;
+            }
+        }
+
+        > textarea {
             width: 100%;
             padding: 24px 24px;
 
@@ -137,7 +153,8 @@ export const CreateModal = () => {
     const data = useSelector((state) => state.todos.todos);
     const tagData = useSelector((state) => state.todos.tags);
     const selectedTag = useSelector((state) => state.todos.selectedTag);
-    const date = useSelector((state) => state.todos.date);
+    const date = useSelector((state) => state.todos.newDate);
+    console.log(`date: ${date}`);
     const isOpen = useSelector((state) => state.event.isOpen);
     const target = useSelector((state) => state.event.target);
     const type = useSelector((state) => state.event.type);
@@ -259,15 +276,12 @@ export const CreateModal = () => {
                         </div>
                         <div className="inputBox">
                             <h2 className="title"> Date </h2>
-                            <div className="date content">
-                                <p> YYYY - MM - DD</p>
-                                <i
-                                    className="fa-duotone fa-calendar-days"
-                                    style={{
-                                        "--fa-primary-color": "#d9d9d9",
-                                        "--fa-secondary-color": "#545454",
-                                    }}
-                                />
+                            <div
+                                className="date content"
+                                onClick={() => dispatch(openCalendar())}
+                            >
+                                <p> {date ? date : "YYYY - MM - DD"} </p>
+                                <i class="fa-solid fa-calendar-days"></i>
                             </div>
                         </div>
                         <div className="tags">

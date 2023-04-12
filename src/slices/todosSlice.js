@@ -9,20 +9,21 @@ const todosSlice = createSlice({
         tags,
         selectedTag: "",
         isHide: false,
-        date: null,
+        newDate: null,
     },
     reducers: {
         setDate: (state, action) => {
-            state.date = action.payload;
+            state.newDate = format(new Date(action.payload), "yyyy-MM-dd");
         },
         addTodo: (state, action) => {
             const newTodo = {
                 ...action.payload,
                 id: state.todos.length + 1,
                 done: false,
-                date: state.date,
+                date: state.newDate,
             };
             state.todos.push(newTodo);
+            console.log(state.todos);
         },
         updateTodo: (state, action) => {
             const updateIdx = state.todos.findIndex(

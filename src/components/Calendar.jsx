@@ -1,7 +1,8 @@
 import styled from "styled-components";
 import { useEffect, useRef, useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { setDate } from "../slices/todosSlice";
+import { openCalendar } from "../slices/eventSlice";
 
 import uuid from "react-uuid";
 import {
@@ -16,6 +17,7 @@ import {
     addMonths,
     parse,
 } from "date-fns";
+import { isNullishCoalesce } from "typescript";
 
 const BgContainer = styled.div`
     z-index: 1000;
@@ -237,6 +239,7 @@ const RenderCells = ({ currentMonth, selectedDate, onDateClick }) => {
 export const Calendar = () => {
     const dispatch = useDispatch();
 
+    const isOpenCalendar = useSelector((state) => state.event.isOpenCalendar);
     const currentDate = new Date(); // 오늘의 날짜 정보
     const currentDateClone = new Date();
     const [selectedDate, setSelectedDate] = useState(new Date());
@@ -247,8 +250,7 @@ export const Calendar = () => {
 
     const onDateClick = (day) => {
         setSelectedDate(day);
-        dispatch(setDate({ formattedDate }));
-        // console.log(`선택 날짜: ${formatted} - ${typeof formatted}`);
+        dispatch(setDate(day.toISOString()));
     };
 
     let currentMonth = new Date(format(currentDate, "yyyy")); // 올해 1월
@@ -294,7 +296,7 @@ export const Calendar = () => {
         if (monthRef.current !== null) {
             monthRef.current.scrollIntoView({ behavior: "auto" });
         }
-    }, []);
+    }, [isOpenCalendar]);
 
     const scrollCurrentMonth = () => {
         if (monthRef.current !== null) {
@@ -304,29 +306,31 @@ export const Calendar = () => {
 
     return (
         <>
-            <BgContainer>
-                <CalendarContainer>
-                    <Header
-                        onClick={() => {
-                            scrollCurrentMonth();
-                            setSelectedDate(new Date());
-                        }}
-                    >
-                        <div className="text">
-                            {currentDate.toLocaleString("en-US", {
-                                month: "long",
-                            })}
-                            {format(currentDate, " dd")}
-                        </div>
-                        <div className="text year">
-                            {format(currentDate, " yyyy")}
-                        </div>
-                    </Header>
-                    <Body>
-                        <div className="calendar-list">{months}</div>
-                    </Body>
-                </CalendarContainer>
-            </BgContainer>
+            {isOpenCalendar ? (
+                <BgContainer onClick={() => dispatch(openCalendar())}>
+                    <CalendarContainer onClick={(e) => e.stopPropagation()}>
+                        <Header
+                            onClick={() => {
+                                scrollCurrentMonth();
+                                setSelectedDate(new Date());
+                            }}
+                        >
+                            <div className="text">
+                                {currentDate.toLocaleString("en-US", {
+                                    month: "long",
+                                })}
+                                {format(currentDate, " dd")}
+                            </div>
+                            <div className="text year">
+                                {format(currentDate, " yyyy")}
+                            </div>
+                        </Header>
+                        <Body>
+                            <div className="calendar-list">{months}</div>
+                        </Body>
+                    </CalendarContainer>
+                </BgContainer>
+            ) : null}
         </>
     );
 };
