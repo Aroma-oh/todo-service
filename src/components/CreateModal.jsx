@@ -187,7 +187,6 @@ export const CreateModal = () => {
         tagColor,
         done: false,
     };
-    // console.log(newData);
 
     const editData = data.find((el) => el.id === target);
     const updateData = {
@@ -197,8 +196,6 @@ export const CreateModal = () => {
         tag: selectedTag,
         tagColor,
     };
-
-    //console.log(editData); // 잘 들어옴
 
     const cleanModal = () => {
         setTitle("");
@@ -275,7 +272,7 @@ export const CreateModal = () => {
                             />
                         </div>
                         <div className="inputBox">
-                            <h2 className="title"> Date </h2>
+                            <h2 className="title"> Due date </h2>
                             <div
                                 className="date content"
                                 onClick={() => dispatch(openCalendar())}
