@@ -191,6 +191,7 @@ export const CreateModal = () => {
     tag: selectedTag,
     tagColor,
     done: false,
+    date: new Date().toISOString(),
   };
 
   const editData = data.find((el) => el.id === target);

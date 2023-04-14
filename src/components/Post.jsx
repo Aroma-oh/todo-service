@@ -51,6 +51,8 @@ const PostContainer = styled.div`
   .content {
     margin: 0 18px;
     padding: 12px 27px;
+    white-space: pre-wrap;
+    width: 400px;
 
     color: ${(props) => props.theme.colors.textColor};
     font-weight: 400;

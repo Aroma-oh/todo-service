@@ -22,7 +22,6 @@ const todosSlice = createSlice({
         ...action.payload,
         id: state.todos.length + 1,
         done: false,
-        date: state.newDate,
       };
       state.todos.push(newTodo);
       console.log(state.todos);
