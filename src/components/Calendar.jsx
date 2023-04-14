@@ -242,8 +242,6 @@ export const Calendar = () => {
   const currentDate = new Date(); // 오늘의 날짜 정보
   const currentDateClone = new Date();
   const [selectedDate, setSelectedDate] = useState(new Date());
-  let formattedDate = format(selectedDate, 'yyyy-MM-dd');
-  let myDate = new Date();
   // 새로운 상태: 빈문자열 -> 선택된 연/월/일만 관리함, slice와 문자열만 주고 받음 -> new Date로하면 타입이 꼬임
   // 배열 [year, month, day] 상태도 구조분해 이용
 
@@ -251,6 +249,10 @@ export const Calendar = () => {
     setSelectedDate(day);
     dispatch(setDate(day.toISOString()));
   };
+
+  useEffect(() => {
+    setSelectedDate(new Date());
+  }, [isOpenCalendar]);
 
   let currentMonth = new Date(format(currentDate, 'yyyy')); // 올해 1월
   let months = []; // 올해 1월 ~ 12월

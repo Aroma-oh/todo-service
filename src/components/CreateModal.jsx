@@ -208,7 +208,7 @@ export const CreateModal = () => {
     setContent('');
     dispatch(tagHandler(''));
     dispatch(openModal());
-    // dispatch(setDate(null));
+    dispatch(setDate(null));
     return null;
   };
 
@@ -233,7 +233,6 @@ export const CreateModal = () => {
         <Container
           onClick={() => {
             dispatch(openModal());
-            dispatch(resetHandler());
           }}
         >
           <View onClick={(e) => e.stopPropagation()}>
