@@ -8,6 +8,7 @@ import {
   updateTodo,
   tagHandler,
   resetHandler,
+  setDate,
 } from '../slices/todosSlice';
 
 const Container = styled.div`
@@ -159,7 +160,6 @@ export const CreateModal = () => {
   const tagData = useSelector((state) => state.todos.tags);
   const selectedTag = useSelector((state) => state.todos.selectedTag);
   const date = useSelector((state) => state.todos.newDate);
-  console.log(`date: ${date}`);
   const isOpen = useSelector((state) => state.event.isOpen);
   const target = useSelector((state) => state.event.target);
   const type = useSelector((state) => state.event.type);
@@ -200,6 +200,7 @@ export const CreateModal = () => {
     content,
     tag: selectedTag,
     tagColor,
+    date,
   };
 
   const cleanModal = () => {
@@ -207,25 +208,23 @@ export const CreateModal = () => {
     setContent('');
     dispatch(tagHandler(''));
     dispatch(openModal());
+    // dispatch(setDate(null));
     return null;
   };
-
-  useEffect(() => {
-    console.log('useEffect');
-    console.log(data);
-  }, [data]);
 
   useEffect(() => {
     if (type === 'create') {
       setTitle('');
       setContent('');
       dispatch(tagHandler(''));
+      dispatch(setDate(null));
     }
     if (!editData) return;
 
     setTitle(editData.title);
     setContent(editData.content);
     dispatch(tagHandler(editData.tag));
+    dispatch(setDate(editData.date));
   }, [type, editData]);
 
   return (

@@ -13,7 +13,9 @@ const todosSlice = createSlice({
   },
   reducers: {
     setDate: (state, action) => {
-      state.newDate = format(new Date(action.payload), 'yyyy-MM-dd');
+      state.newDate = action.payload
+        ? format(new Date(action.payload), 'yyyy-MM-dd')
+        : 'yyyy-MM-dd';
     },
     addTodo: (state, action) => {
       const newTodo = {
