@@ -145,6 +145,8 @@ const Body = styled.div`
             justify-content: flex-start;
             align-items: center;
 
+            cursor: pointer;
+
             :hover {
               font-weight: 700;
             }
