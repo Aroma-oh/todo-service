@@ -24,7 +24,6 @@ const todosSlice = createSlice({
         done: false,
       };
       state.todos.push(newTodo);
-      console.log(state.todos);
     },
     updateTodo: (state, action) => {
       const updateIdx = state.todos.findIndex(
