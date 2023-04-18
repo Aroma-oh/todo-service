@@ -38,7 +38,6 @@ export const Main = () => {
             return <Post {...el} />;
           })}
       </MainContainer>
-      {/* <CreateModal type="edit" /> */}
     </>
   );
 };
