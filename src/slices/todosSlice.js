@@ -58,7 +58,6 @@ const todosSlice = createSlice({
       }
     },
     resetHandler: (state) => {
-      state.todos = initialTodos;
       state.selectedTag = '';
     },
   },
