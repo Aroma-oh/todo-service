@@ -234,6 +234,7 @@ export const CreateModal = () => {
         <Container
           onClick={() => {
             dispatch(openModal());
+            dispatch(resetHandler());
           }}
         >
           <View onClick={(e) => e.stopPropagation()}>
