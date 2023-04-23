@@ -169,7 +169,6 @@ export const CreateModal = () => {
     textRef.current.style.height = textRef.current.scrollHeight + 'px';
   }, []);
 
-  // const [selectedTag, setSelectedTag] = useState("");
   // 초기값이 없어서 오류 발생 // 📌 옵셔널 체이닝이 언디 오류를 해결해줌
   // state가 데이터를 만들기전에 filter가 참조해서 오류가 난다.
   // 옵셔널 체이닝을하면 state가 만들어지기 전에 undefined, 이후에 값을 주어 오류를 제거해준다.
