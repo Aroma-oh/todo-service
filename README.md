@@ -16,7 +16,7 @@ Todo 관리를 위한 웹 애플리케이션입니다.
 -   [상태관리 라이브러리 사용 배경과 후기](https://velog.io/@on002way/todo-service-ver.1-redux-toolkit-refactoring-%ED%9A%8C%EA%B3%A0)
 
 ## Documents
-- [사용자 요구사항 정의서](https://infrequent-windscreen-0d8.notion.site/7c85bf9f6ab04344b5367fe1b9142842?pvs=25)
+- [사용자 요구사항 정의서](https://aroma-oh-portfoliocom.notion.site/7c85bf9f6ab04344b5367fe1b9142842?pvs=4)
 - [피그마](https://www.figma.com/file/4eQVEDpT9HPRvmyub24Lc1/Todo-list?type=design&node-id=0-1&mode=design&t=tcsLZFLckTD7kbbh-0)
 
 
